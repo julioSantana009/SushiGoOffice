@@ -1,0 +1,20 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "parte backend do SushiGoOffice",
+  "homepage": "https://github.com/julioSantana009/SushiGoOffice#readme",
+  "bugs": {
+    "url": "https://github.com/julioSantana009/SushiGoOffice/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julioSantana009/SushiGoOffice.git"
+  },
+  "license": "ISC",
+  "author": "Julio Santana",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
