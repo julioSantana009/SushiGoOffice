@@ -20,7 +20,11 @@ const User = data.define("User", {
     allowNull: true,
   },
   password: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  role: {
+    type: Sequelize.STRING,
     allowNull: true,
   },
   role: {

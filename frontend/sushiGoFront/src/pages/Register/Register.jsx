@@ -1,23 +1,32 @@
 import * as C from "./style";
-import Boat from "../../assets/leadership.gif";
 import * as BTN from "../../conponents/Buttons/Button";
-import {Link} from "react-router-dom";
+import {Link,useNavigate} from "react-router-dom";
 import axios from "axios";
 
 import { useState } from "react";
 
-const Login = () => {
+const Register = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("user");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let response = await axios.post("http://localhost:3000/users", {
+    try{
+        let response = await axios.post("http://localhost:3000/register", {
+      name,
       email,
       password,
+      role,
     });
-
     console.log(response.data);
+    navigate("/login");
+    }catch(error){
+      console.error(error);
+    }
   };
 
   return (
@@ -27,13 +36,22 @@ const Login = () => {
         <C.RightDiv>
           <div className="right_wrap">
             <div className="title">
-              <h1>Faça seu Login.</h1>
+              <h1>Cadastre-se</h1>
             </div>
-            <div className="img_wrap">
-              <img src={Boat} alt="" />
-            </div>
+            
             <div className="formContainer">
               <form onSubmit={handleSubmit}>
+                <input type="hidden" name="role" id="role" value={role}
+                onChange={(e) => setRole(e.target.value)}
+                />  
+                   <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Digite seu Nome."
+                />
                 <input
                   type="text"
                   name="email"
@@ -52,14 +70,15 @@ const Login = () => {
                 />
                 <BTN.Login_BTN>
                   <button type="submit" className="Login_BTN" role="button">
-                    Entrar
+                    Cadastrar
                   </button>
                 </BTN.Login_BTN>
               </form>
-               <Link to="/register">
+              <br />
+              <Link to="/login">
               <BTN.Back_BTN>
                   <button className="button-54" role="button">
-                    Cadastrar
+                    Voltar
                   </button>
               </BTN.Back_BTN>
               </Link>
@@ -71,4 +90,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
