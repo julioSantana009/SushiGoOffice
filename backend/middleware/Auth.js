@@ -1,6 +1,6 @@
-
+require("dotenv").config();
 //chave secreta para o JWT
-const SECRET_KEY = "sushigo0509";
+const SECRET_KEY = process.env.SECRET_KEY ;
 
 const auth = (req, res, next) => {
   let authToken = req.headers["authorization"];
