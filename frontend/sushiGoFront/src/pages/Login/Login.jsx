@@ -1,24 +1,42 @@
 import * as C from "./style";
 import Boat from "../../assets/leadership.gif";
 import * as BTN from "../../conponents/Buttons/Button";
-import {Link} from "react-router-dom";
+import {Link,useNavigate} from "react-router-dom";
 import axios from "axios";
+import { axiosConfig } from "../../AxiosConfig/AxiosConfig";
 
-import { useState } from "react";
+import { useState} from "react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
+
+    
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let response = await axios.post("http://localhost:3000/users", {
+    let response = await axios.post("http://localhost:3000/auth", {
       email,
       password,
-    });
+    }).then(response =>{
+        
+     if(response.status === 200){
+      let token = response.data.token;
+      localStorage.setItem("token", token);
+      axiosConfig.headers.authorization = `Bearer ${localStorage.getItem("token")}`;
+      console.log(response.data,token);
+      navigate("/");
+     }
+    }).catch(error =>{
+      alert("Email ou senha incorretos!");
+      console.log(error)
+    })
 
-    console.log(response.data);
+    console.log(response.status);
   };
+
 
   return (
     <>
